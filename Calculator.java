@@ -19,6 +19,9 @@ public class Calculator implements ActionListener {
 	private String firstNum = "", secondNum = "", labelNum = "0";
 	boolean isSecond = false, isPlus = false, isMinus = false, isMultiply = false, isDivision = false, isError = false;
 	
+	/*
+	 * Calculator class adds the app to a window
+	 */
 	public Calculator() {
 		frame = new JFrame();
 		label = new JLabel(labelNum);
@@ -33,10 +36,14 @@ public class Calculator implements ActionListener {
 		frame.setVisible(true);
 	}
 	
+	//main
 	public static void main(String[] args) {
 		new Calculator();
 	}
 	
+	/*
+	 * Function to create the buttons of the calculator
+	 */
 	public void createButtons() {
 		//creating buttons
 		zero = new JButton("0");
@@ -88,11 +95,13 @@ public class Calculator implements ActionListener {
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
+		c.gridwidth = 4;
 		c.gridy = 0;
 		panel.add(label, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
+		c.gridwidth = 1;
 		c.gridy = 1;
 		panel.add(clear, c);
 		
@@ -189,8 +198,11 @@ public class Calculator implements ActionListener {
 		panel.add(equal, c);
 	}
 
-	@Override
+	/*
+	 * Function to handle button presses
+	 */
 	public void actionPerformed(ActionEvent e) {
+		//number values
 		if (e.getSource() == one) {
 			if (!isSecond) {
 				firstNum += "1";
@@ -311,16 +323,32 @@ public class Calculator implements ActionListener {
 				label.setText(labelNum);
 			}
 		}
+		
+		//special values
 		else if (e.getSource() == dot) {
 			if (!isSecond) {
-				firstNum += ".";
-				labelNum = firstNum;
-				label.setText(labelNum);
+				if (firstNum.equals("")) {
+					firstNum += "0.";
+					labelNum = firstNum;
+					label.setText(labelNum);
+				}
+				else {
+					firstNum += ".";
+					labelNum = firstNum;
+					label.setText(labelNum);
+				}
 			}
 			else {
-				secondNum += ".";
-				labelNum = secondNum;
-				label.setText(labelNum);
+				if (secondNum.equals("")) {
+					secondNum += "0.";
+					labelNum = secondNum;
+					label.setText(labelNum);
+				}
+				else {
+					secondNum += ".";
+					labelNum = secondNum;
+					label.setText(labelNum);
+				}
 			}
 		}
 		else if (e.getSource() == plus) {
@@ -436,6 +464,9 @@ public class Calculator implements ActionListener {
 		}
 	}
 	
+	/*
+	 * Function to handle addition
+	 */
 	private void add() {
 		removeNull();
 		isPlus = false;
@@ -450,6 +481,9 @@ public class Calculator implements ActionListener {
 		label.setText(labelNum);
 	}
 
+	/*
+	 * Function to handle subtraction
+	 */
 	private void subtract() {
 		removeNull();
 		isMinus = false;
@@ -464,6 +498,9 @@ public class Calculator implements ActionListener {
 		label.setText(labelNum);
 	}
 	
+	/*
+	 * Function to handle multiplication
+	 */
 	private void multiply() {
 		removeNull();
 		isMultiply = false;
@@ -478,6 +515,9 @@ public class Calculator implements ActionListener {
 		label.setText(labelNum);
 	}
 	
+	/*
+	 * Function to handle division
+	 */
 	private void divide() {
 		removeNull();
 		isDivision = false;
@@ -498,6 +538,9 @@ public class Calculator implements ActionListener {
 		label.setText(labelNum);
 	}
 	
+	/*
+	 * Removes any null from first or second number
+	 */
 	private void removeNull() {
 		if (firstNum.equals("")) {
 			firstNum = "0";
@@ -507,8 +550,10 @@ public class Calculator implements ActionListener {
 		}
 	}
 	
+	/*
+	 * disregards switching and checks if second number is empty
+	 */
 	private void addingOn() {
-		//disregards switching and checks if second number is empty
 		if (isError) {
 			labelNum = "Error";
 			isError = true;
@@ -532,6 +577,9 @@ public class Calculator implements ActionListener {
 		}
 	}
 	
+	/*
+	 * Clears the second or first number
+	 */
 	private void clear() {
 		if (!isSecond) {
 			isError = false;
